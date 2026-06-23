@@ -26,8 +26,6 @@ O projeto foi construído utilizando uma arquitetura de aplicação web moderna,
     * **Banco de Dados:** MySQL
     * **Gerenciamento de Versão:** Git e GitHub
 
-Claro\! Aqui está o tutorial ajustado para ser claro e funcional tanto para usuários de Linux quanto de Windows. As principais alterações estão nos comandos de ativação do ambiente virtual e na referência ao executável do Python (`python` vs. `python3`).
-
 -----
 
 ## Instruções de Execução (Linux e Windows)
