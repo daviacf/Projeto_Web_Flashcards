@@ -1,0 +1,16 @@
+FROM python:3.10-slim
+
+WORKDIR /app
+
+# Copia o requirements e instala as dependências (flask, mysql-connector, etc)
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copia o resto do código do backend para dentro do conteiner
+COPY . .
+
+# expoe a porta que o run.py está configurado (5000)
+EXPOSE 5000
+
+# comando p rodar a app
+CMD ["python", "run.py"]

@@ -1,0 +1,44 @@
+version: '3.8'
+
+# 1. criando a rede interna isolada 
+networks:
+  infra-network:
+    driver: bridge
+
+# 2. criando o volume para os dados não sumirem 
+volumes:
+  dados-db:
+
+services:
+  # BD
+  banco:
+    image: mariadb:10.11
+    container_name: container_banco
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: senhadoroot       # senha adm
+      MYSQL_DATABASE: projeto_web            # nome banco
+      MYSQL_USER: usuario_projeto            # user comum
+      MYSQL_PASSWORD: senhadousuario         # senha user comum
+    volumes:
+      - dados-db:/var/lib/mysql              
+    networks:
+      - infra-network
+    # sem "ports", p não expor o banco para fora
+
+  # INSTÂNCIA 1 (APP1)
+  app1:
+    build: ./backend                         # le o dockerfile na pasta backend
+    container_name: app_instancia_1
+    ports:
+      - "5001:5000"                          # temp pra teste
+    environment:
+      - DB_HOST=banco                        # DIZ PROTOCOLO QUE O BANCO É O SERVIÇO 'banco'
+      - DB_USER=root
+      - DB_PASSWORD=senhadoroot
+      - DB_NAME=projeto_web
+      - DB_PORT=3306
+    depends_on:
+      - banco
+    networks:
+      - infra-network
