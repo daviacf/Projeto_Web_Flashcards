@@ -79,6 +79,33 @@ services:
       - infra-network
 
 
+# MONITORAMENTO - COLETOR DE MÉTRICAS
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: container_prometheus
+    restart: always
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    networks:
+      - infra-network
+    ports:
+      - "9090:9090"
+
+  # MONITORAMENTO - PAINEL VISUAL (DASHBOARD)
+  grafana:
+    image: grafana/grafana:latest
+    container_name: container_grafana
+    restart: always
+    ports:
+      - "3001:3000" # Vamos expor na 3001 para não chocar com o frontend
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin # Senha para você logar no painel
+    depends_on:
+      - prometheus
+    networks:
+      - infra-network
+
+
 networks:
   infra-network:
     driver: bridge
