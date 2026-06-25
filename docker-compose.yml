@@ -64,6 +64,21 @@ services:
     networks:
       - infra-network
 
+  # O FRONTEND DA APP
+  frontend:
+    build: ./frontend
+    container_name: app_frontend
+    restart: always
+    ports:
+      - "3000:3000" # porta p abrir no navegador
+    environment:
+      - NODE_ENV=development
+    depends_on:
+      - nginx # backend/nginx sobem antes do front
+    networks:
+      - infra-network
+
+
 networks:
   infra-network:
     driver: bridge
