@@ -21,7 +21,9 @@ services:
       MYSQL_USER: usuario_projeto            # user comum
       MYSQL_PASSWORD: senhadousuario         # senha user comum
     volumes:
-      - dados-db:/var/lib/mysql              
+      - dados-db:/var/lib/mysql      
+      # adicao!!: mapeia o arquivo sql pra a pasta de inicializaçao automatica do mariadb
+      - ./banco/projeto_web.sql:/docker-entrypoint-initdb.d/projeto_web.sql        
     networks:
       - infra-network
     # sem "ports", p não expor o banco para fora
