@@ -1,7 +1,7 @@
 services:
   # BD
   banco:
-    image: mariadb:10.11
+    image: mysql:oraclelinux9
     container_name: container_banco
     restart: always
     environment:
