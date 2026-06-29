@@ -3,3 +3,4 @@ Flask-Cors
 mysql-connector-python
 passlib
 PyJWT
+prometheus-flask-exporter

@@ -64,6 +64,18 @@ services:
     networks:
       - infra-network
 
+  # TRADUTOR DE MÉTRICAS DO NGINX
+  nginx-exporter:
+    image: nginx/nginx-prometheus-exporter:latest
+    container_name: container_nginx_exporter
+    restart: always
+    command:
+      - -nginx.scrape-uri=http://nginx:8080/stub_status
+    depends_on:
+      - nginx
+    networks:
+      - infra-network
+
   # O FRONTEND DA APP
   frontend:
     build: ./frontend
