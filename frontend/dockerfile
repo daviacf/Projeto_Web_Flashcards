@@ -2,17 +2,12 @@ FROM node:18-alpine
 
 WORKDIR /app
 
-# copia os arquivos de dependências
 COPY package*.json ./
 
-# instala as dependências do proj
 RUN npm install
 
-# copia o resto dos arquivos do frontend
 COPY . .
 
-# expõe a porta padrão react
 EXPOSE 3000
 
-# comando p iniciar o servidor de desenvolvimento do frontend
 CMD ["npm", "start"]
